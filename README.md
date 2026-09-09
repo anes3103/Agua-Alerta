@@ -112,7 +112,7 @@ As classes do Água Alerta foram definidas com base nas principais funções do 
 Aqui estão as principais entidades, suas classes, atributos e como se relacionam:
 
 ```text
-classDiagram
+Diagrama de classes em texto
 
     class Usuario {
         -int id
@@ -197,7 +197,9 @@ classDiagram
     Denuncia "1" --> "1" Localizacao : possui
     Denuncia "1" *-- "0..*" Foto : possui
 ```
-Aqui está como ficaria o Diagrama de classes na sua versão visual:
+## Diagrama de classes
+
+Aqui está o diagrama de classes feito com base do escopo à cima.
 
 <img width="1076" height="1514" alt="image" src="https://github.com/user-attachments/assets/fdd1cc86-cc3f-430c-bf7d-aed3c6bd5ef9" />
 
