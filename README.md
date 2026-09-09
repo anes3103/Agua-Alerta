@@ -3,7 +3,7 @@ Esse é um projeto de faculdade feito em grupo, com a ideia de criar uma platafo
 
  ## ODS 6 — Água Potável e Saneamento
 
-O projeto Água em alerta faz conexão com a ODS 6 da Água Potável e Saneamento, que tem como objetivo garantir a disponibilidade e a gestão sustentável da água potável e do saneamento para todos, ela faz parte da Agenda 2030 e busca enfrentar problemas relacionados ao acesso a água de qualidade e à preservação de seus ecossistemas.
+O projeto Água Alerta faz conexão com a ODS 6 da Água Potável e Saneamento, que tem como objetivo garantir a disponibilidade e a gestão sustentável da água potável e do saneamento para todos, ela faz parte da Agenda 2030 e busca enfrentar problemas relacionados ao acesso a água de qualidade e à preservação de seus ecossistemas.
 
 Entre seus principais objetivos estão:
 
@@ -12,7 +12,7 @@ Entre seus principais objetivos estão:
 * Proteger rios, lagos, aquíferos, áreas úmidas e outros ecossistemas relacionados à água;
 * Incentivar a participação das comunidades na gestão da água e do saneamento.
 
- Metas da Água potável e saneamento tem relacionadas ao Água Alerta
+ Metas da Água Potável e Saneamento tem relacionadas ao Água Alerta
 
 O projeto Água Alerta, possui uma relação direta principalmente com as metas  (6.3, 6.6 e 6.b).
 
@@ -22,13 +22,11 @@ Meta 6.6 — Proteção dos ecossistemas relacionados à água: Que busca proteg
 
 Meta 6.b — Participação da comunidade: Busca apoiar e fortalecer a participação das comunidades locais na melhoria da gestão da água e do saneamento.
 
-Por que o Água Alerta se encaixa na ODS 6 ?
+## Por que o Água Alerta se encaixa na ODS 6 ?
 
-A proposta do projeto busca utilizar a tecnologia como ferramenta para conscientizar e auxiliar a população diante de problemas relacionados à água. Dessa forma, o Água Alerta não trata a água apenas como um recurso a ser consumido, mas como um recurso natural que precisa ser utilizado de maneira responsável e sustentável.
-
-A poluição pode comprometer a qualidade dos recursos hídricos e afetar tanto o meio ambiente quanto as pessoas que dependem desses recursos, e a nossa ODS estabelece justamente a necessidade de melhorar a qualidade da água e reduzir a poluição. O Água Alerta pode contribuir para esse objetivo ao informar a população sobre possíveis problemas, incentivar a prevenção da poluição e destacar a importância da preservação dos recursos hídricos. 
-
-O saneamento está diretamente relacionado à qualidade da água e à saúde da população. O descarte inadequado de resíduos e de águas residuais pode contaminar rios, lagos e outras fontes de água, por isso, a conscientização sobre saneamento também faz parte da proposta do Água Alerta. Ao informar a população sobre os impactos do descarte inadequado e sobre a importância da gestão correta da água e dos resíduos, o projeto contribui para os objetivos da ODS 6.
+Nosso projeto usa tecnologia para conscientizar e auxiliar a população sobre problemas relacionados à água, tratando-a como um recurso que exige uso responsável e sustentável.
+A poluição compromete a qualidade da água e afeta o meio ambiente e a população, O Água Alerta contribui informando sobre riscos, incentivando a prevenção e destacando a importância da preservação dos recursos hídricos.
+O saneamento também está ligado à qualidade da água e à saúde pública, já que o descarte inadequado de resíduos contamina rios e outras fontes. Por isso, o projeto reforça a conscientização sobre descarte correto e gestão da água, alinhando-se aos objetivos da ODS 6.
 
  Conclusão
 
