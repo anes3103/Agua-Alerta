@@ -20,7 +20,7 @@ Meta 6.3 — Qualidade da água e redução da poluição: Busca melhorar a qual
 
 Meta 6.6 — Proteção dos ecossistemas relacionados à água: Que busca proteger e restaurar ecossistemas relacionados à água, como rios, lagos, aquíferos, áreas úmidas, florestas e outros ambientes importantes para o equilíbrio dos recursos hídricos.
 
-Meta 6.b — Participação da comunidadeu; Busca apoiar e fortalecer a participação das comunidades locais na melhoria da gestão da água e do saneamento.
+Meta 6.b — Participação da comunidade: Busca apoiar e fortalecer a participação das comunidades locais na melhoria da gestão da água e do saneamento.
 
 Por que o Água Alerta se encaixa na ODS 6 ?
 
