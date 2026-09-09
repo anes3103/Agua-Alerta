@@ -143,5 +143,3 @@ Nesta fase inicial, o MVP do Água Alerta atende:
 - [x] Formulário funcional de cadastro de denúncia (localização, tipo de problema, descrição e upload de foto)
 - [x] Classificação simples acionada por IA (validação do texto e análise inicial do tipo de problema/imagem)
 - [x] Feed/lista de denúncias registradas, exibindo informações da comunidade e status do relato
-
----
