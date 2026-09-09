@@ -32,14 +32,6 @@ Cada denúncia pode conter:
 -  Falta de água ou desabastecimento
 -  Poluição de rios e mananciais
 
-## Público-alvo
-
-O Água Alerta será desenvolvido para **moradores e pessoas da comunidade**, que desejam denunciar problemas relacionados à água e ao saneamento, como vazamentos, esgoto a céu aberto, água contaminada, falta de água e poluição de rios. Além disso, a plataforma contará com **administradores responsáveis pelo gerenciamento das informações e das denúncias registradas**.
-
-Os usuários poderão registrar as ocorrências, informar o local, descrever o problema e anexar fotos. As informações beneficiarão a comunidade, que poderá acompanhar os problemas identificados, além de servir como apoio para órgãos públicos, empresas de saneamento e organizações ambientais na busca por soluções.
-
-O sistema foi pensado para facilitar a comunicação dessas situações e incentivar a participação da população na melhoria das condições de água e saneamento.
-
 ## O papel da Inteligência Artificial
 
 A IA atua como triagem, validação e organização dos dados recebidos pela plataforma.
@@ -60,6 +52,14 @@ Nesta fase inicial, o MVP do Água Alerta atende:
 - [x] Formulário funcional de cadastro de denúncia (localização, tipo de problema, descrição e upload de foto)
 - [x] Classificação simples acionada por IA (validação do texto e análise inicial do tipo de problema/imagem)
 - [x] Feed/lista de denúncias registradas, exibindo informações da comunidade e status do relato
+
+## Público-alvo
+
+O Água Alerta será desenvolvido para **moradores e pessoas da comunidade**, que desejam denunciar problemas relacionados à água e ao saneamento, como vazamentos, esgoto a céu aberto, água contaminada, falta de água e poluição de rios. Além disso, a plataforma contará com **administradores responsáveis pelo gerenciamento das informações e das denúncias registradas**.
+
+Os usuários poderão registrar as ocorrências, informar o local, descrever o problema e anexar fotos. As informações beneficiarão a comunidade, que poderá acompanhar os problemas identificados, além de servir como apoio para órgãos públicos, empresas de saneamento e organizações ambientais na busca por soluções.
+
+O sistema foi pensado para facilitar a comunicação dessas situações e incentivar a participação da população na melhoria das condições de água e saneamento.
 
 ## Diagrama de Classes
 
