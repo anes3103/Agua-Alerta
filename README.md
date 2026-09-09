@@ -1,7 +1,7 @@
 # Agua-Alerta
 Esse é um projeto de faculdade feito em grupo, com a ideia de criar uma plataforma onde as pessoas possam denunciar problemas relacionados à água e ao saneamento, como vazamentos, falta de água e poluição.
 
- ## ODS 6 — Água Potável e Saneamento
+ ## ODS 6 Água Potável e Saneamento
 
 O projeto Água Alerta faz conexão com a ODS 6 da Água Potável e Saneamento, que tem como objetivo garantir a disponibilidade e a gestão sustentável da água potável e do saneamento para todos, ela faz parte da Agenda 2030 e busca enfrentar problemas relacionados ao acesso a água de qualidade e à preservação de seus ecossistemas.
 
@@ -16,11 +16,11 @@ Entre seus principais objetivos estão:
 
 O projeto Água Alerta, possui uma relação direta principalmente com as metas  (6.3, 6.6 e 6.b).
 
-Meta 6.3 — Qualidade da água e redução da poluição: Busca melhorar a qualidade da água por meio da redução da poluição, da diminuição do despejo de materiais perigosos, do aumento do tratamento de águas residuais e da reutilização segura da água.
+Meta 6.3 Qualidade da água e redução da poluição: Busca melhorar a qualidade da água por meio da redução da poluição, da diminuição do despejo de materiais perigosos, do aumento do tratamento de águas residuais e da reutilização segura da água.
 
-Meta 6.6 — Proteção dos ecossistemas relacionados à água: Que busca proteger e restaurar ecossistemas relacionados à água, como rios, lagos, aquíferos, áreas úmidas, florestas e outros ambientes importantes para o equilíbrio dos recursos hídricos.
+Meta 6.6 Proteção dos ecossistemas relacionados à água: Que busca proteger e restaurar ecossistemas relacionados à água, como rios, lagos, aquíferos, áreas úmidas, florestas e outros ambientes importantes para o equilíbrio dos recursos hídricos.
 
-Meta 6.b — Participação da comunidade: Busca apoiar e fortalecer a participação das comunidades locais na melhoria da gestão da água e do saneamento.
+Meta 6.b Participação da comunidade: Busca apoiar e fortalecer a participação das comunidades locais na melhoria da gestão da água e do saneamento.
 
 ## Por que o Água Alerta se encaixa na ODS 6 ?
 
