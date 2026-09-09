@@ -8,7 +8,9 @@ As classes do Água Alerta foram definidas com base nas principais funções do 
 
 Aqui estão as principais entidades, suas classes, atributos e como se relacionam:
 
-```text
+```mermaid
+classDiagram
+
     class Usuario {
         -int id
         -String nome
