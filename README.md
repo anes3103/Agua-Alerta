@@ -145,4 +145,7 @@ classDiagram
     Denuncia "1" --> "1" Localizacao : possui
     Denuncia "1" *-- "0..*" Foto : possui
 ```
+Aqui está como ficaria o Diagrama de classes na sua versão visual:
+
+<img width="1076" height="1514" alt="image" src="https://github.com/user-attachments/assets/fdd1cc86-cc3f-430c-bf7d-aed3c6bd5ef9" />
 
