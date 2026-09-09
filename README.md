@@ -89,13 +89,13 @@ Cada denúncia pode conter:
 - **Priorização**  identifica automaticamente ocorrências de alto risco.
 - **Organização de dados**  padroniza as informações, facilitando a visualização em mapas de calor e relatórios comunitários.
 
-## Escopo do MVP
+## Escopo do MVP (Produto Mínimo Viável) 
 
 Nesta fase inicial, o MVP do Água Alerta atende:
 
 - [x] Formulário funcional de cadastro de denúncia (localização, tipo de problema, descrição e upload de foto)
 - [x] Classificação simples acionada por IA (validação do texto e análise inicial do tipo de problema/imagem)
-- [x] Feed/lista de denúncias registradas, exibindo informações da comunidade e status do relato
+- [x] Feed ou lista de denúncias registradas, exibindo informações da comunidade e status do relato
 
 ## Público-alvo
 
