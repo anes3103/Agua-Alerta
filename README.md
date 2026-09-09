@@ -1,9 +1,6 @@
 # Agua-Alerta
 Esse é um projeto de faculdade feito em grupo, com a ideia de criar uma plataforma onde as pessoas possam denunciar problemas relacionados à água e ao saneamento, como vazamentos, falta de água e poluição.
 
-## Sobre o projeto
-
-O **Água Alerta** é uma plataforma que permite que cidadãos denunciem problemas relacionados à água e ao saneamento básico em suas regiões. O objetivo é engajar a comunidade na identificação de falhas na infraestrutura e incentivar a busca por soluções junto aos órgãos responsáveis.
 
 ## Problema Real
 
@@ -16,6 +13,14 @@ A plataforma permitirá que o cidadão registre uma ocorrência com tipo do prob
 Em resumo, o Água Alerta busca transformar:
 Problema observado → Registro → Localização → Organização → Acompanhamento
 em um processo simples e acessível para a população de Aiuaba.
+
+## O papel da Inteligência Artificial
+
+No Água Alerta, a IA irá funcionar como um motor de triagem, analisando e rastreando as denúncias de forma prática e eficaz, dando o suporte necessário para as comunidades.
+
+**Análise e classificação de denúncias**
+- **Processamento de imagens:** analisa as fotos enviadas para confirmar se correspondem a vazamentos, esgoto, contaminação ou poluição, reduzindo envios incorretos ou spam.
+- **Categorização automática de texto:** processa a descrição digitada pelo usuário e categoriza automaticamente a gravidade e o tipo de problema.
 
 ## Como funciona o registro de uma denúncia
 
@@ -44,13 +49,6 @@ Cada denúncia pode conter:
 -  Falta de água ou desabastecimento
 -  Poluição de rios e mananciais
 
-## O papel da Inteligência Artificial
-
-A IA atua como triagem, validação e organização dos dados recebidos pela plataforma.
-
-**Análise e classificação de denúncias**
-- **Processamento de imagens:** analisa as fotos enviadas para confirmar se correspondem a vazamentos, esgoto, contaminação ou poluição, reduzindo envios incorretos ou spam.
-- **Categorização automática de texto:** processa a descrição digitada pelo usuário e categoriza automaticamente a gravidade e o tipo de problema.
 
 **Por que a IA é fundamental**
 - **Escalabilidade**  processa centenas de relatos simultâneos sem gargalos manuais.
