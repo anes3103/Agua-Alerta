@@ -5,6 +5,18 @@ Esse é um projeto de faculdade feito em grupo, com a ideia de criar uma platafo
 
 O **Água Alerta** é uma plataforma que permite que cidadãos denunciem problemas relacionados à água e ao saneamento básico em suas regiões. O objetivo é engajar a comunidade na identificação de falhas na infraestrutura e incentivar a busca por soluções junto aos órgãos responsáveis.
 
+## Problema Real
+
+O município de Aiuaba-CE enfrenta desafios como perdas na distribuição de água, problemas na infraestrutura de abastecimento, dificuldades no esgotamento sanitário e possíveis problemas relacionados à qualidade da água. Dados do SINISA 2024 apontam perdas de aproximadamente 40,8% da água distribuída, enquanto o Censo 2022 mostra que 48,4% da população utiliza fossa rudimentar ou buraco para o afastamento de dejetos.
+
+Diante desse cenário, o Água Alerta busca resolver a dificuldade de registrar, localizar, organizar e acompanhar ocorrências identificadas pela população, como vazamentos, falta de água, esgoto a céu aberto, danos em tubulações e problemas de qualidade da água.
+
+A plataforma permitirá que o cidadão registre uma ocorrência com tipo do problema, localização, descrição, data, fotografia e status de atendimento. Essas informações serão organizadas e apresentadas em um mapa, permitindo identificar regiões com maior concentração de ocorrências e fornecendo dados que podem auxiliar a gestão municipal.
+
+Em resumo, o Água Alerta busca transformar:
+Problema observado → Registro → Localização → Organização → Acompanhamento
+em um processo simples e acessível para a população de Aiuaba.
+
 ## Como funciona o registro de uma denúncia
 
 O processo foi pensado para ser simples e rápido:
@@ -52,18 +64,6 @@ Nesta fase inicial, o MVP do Água Alerta atende:
 - [x] Formulário funcional de cadastro de denúncia (localização, tipo de problema, descrição e upload de foto)
 - [x] Classificação simples acionada por IA (validação do texto e análise inicial do tipo de problema/imagem)
 - [x] Feed/lista de denúncias registradas, exibindo informações da comunidade e status do relato
-
-## Problema Real
-
-O município de Aiuaba-CE enfrenta desafios como perdas na distribuição de água, problemas na infraestrutura de abastecimento, dificuldades no esgotamento sanitário e possíveis problemas relacionados à qualidade da água. Dados do SINISA 2024 apontam perdas de aproximadamente 40,8% da água distribuída, enquanto o Censo 2022 mostra que 48,4% da população utiliza fossa rudimentar ou buraco para o afastamento de dejetos.
-
-Diante desse cenário, o Água Alerta busca resolver a dificuldade de registrar, localizar, organizar e acompanhar ocorrências identificadas pela população, como vazamentos, falta de água, esgoto a céu aberto, danos em tubulações e problemas de qualidade da água.
-
-A plataforma permitirá que o cidadão registre uma ocorrência com tipo do problema, localização, descrição, data, fotografia e status de atendimento. Essas informações serão organizadas e apresentadas em um mapa, permitindo identificar regiões com maior concentração de ocorrências e fornecendo dados que podem auxiliar a gestão municipal.
-
-Em resumo, o Água Alerta busca transformar:
-Problema observado → Registro → Localização → Organização → Acompanhamento
-em um processo simples e acessível para a população de Aiuaba.
 
 ## Público-alvo
 
