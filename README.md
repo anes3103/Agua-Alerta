@@ -201,5 +201,6 @@ Diagrama de classes em texto
 
 Aqui está o diagrama de classes feito com base do escopo à cima.
 
-<img width="1076" height="1514" alt="image" src="https://github.com/user-attachments/assets/fdd1cc86-cc3f-430c-bf7d-aed3c6bd5ef9" />
+<img width="537" height="694" alt="image" src="https://github.com/user-attachments/assets/5ad2bc20-8314-48c9-8ce2-96982f54f54e" />
+
 
