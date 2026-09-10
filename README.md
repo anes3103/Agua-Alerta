@@ -105,7 +105,7 @@ Os usuários poderão registrar as ocorrências, informar o local, descrever o p
 
 O sistema foi pensado para facilitar a comunicação dessas situações e incentivar a participação da população na melhoria das condições de água e saneamento.
 
-## Diagrama de Classes
+## Entidades e POO
 
 As classes do Água Alerta foram definidas com base nas principais funções do sistema. A classe **Usuário** representa as pessoas que utilizam a plataforma e podem registrar denúncias. A classe **Administrador** herda de Usuário e possui funções específicas para gerenciar as denúncias. A classe **Denúncia** representa os problemas registrados, enquanto **Localização** identifica onde o problema ocorreu e **Foto** permite anexar imagens à denúncia. As enumerações **StatusDenuncia** e **TipoProblema** foram criadas para definir, respectivamente, os possíveis estados da denúncia e os tipos de problemas que podem ser registrados.
 
@@ -195,7 +195,10 @@ classDiagram
     Administrador --|> Usuario : herda
     Administrador "1" --> "0..*" Denuncia : gerencia
     Denuncia "1" --> "1" Localizacao : possui
-    Denuncia "1" *-- "0..*" Foto : possui
+    Denuncia "1" --> "0..*" Foto : possui
+
+    Denuncia --> StatusDenuncia : usa
+    Denuncia --> TipoProblema : usa
 ```
 ## Diagrama de classes
 
