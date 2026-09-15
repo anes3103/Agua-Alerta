@@ -262,3 +262,12 @@ A IA servirá como um apoio ao sistema, enquanto o Back-end continuará respons�
 
 ## Por que essas tecnologias foram escolhidas?
 
+O Java foi escolhido para o Back-end por trabalhar bem com orientação a objetos, que é utilizada no projeto.
+
+A API ajuda na comunicação entre a interface e o Back-end, fazendo com que cada parte do sistema tenha sua própria função.
+
+O banco de dados será utilizado para armazenar as informações das denúncias e facilitar o acesso a elas quando necessário.
+
+A Inteligência Artificial será utilizada para ajudar na análise e organização das denúncias, principalmente quando houver muitas ocorrências.
+
+Com essa divisão, o sistema ficará mais organizado e mais fácil de atualizar ou corrigir quando for necessário.
