@@ -220,3 +220,45 @@ O usuário vai poder acessar o sistema e cadastrar uma denúncia. Nessa denúnci
 Depois que a denúncia for enviada, o Back-end vai receber essas informações, verificar os dados e salvar a ocorrência no sistema.
 
 Também será feita uma integração com uma Inteligência Artificial. A IA vai ajudar na análise das denúncias, podendo identificar o tipo do problema, analisar a descrição e ajudar a definir a prioridade da ocorrência.
+
+De uma forma mais resumida o funcionamento será:
+
+Usuário -> Cadastro da Denúncia -> Back-end -> Banco de Dados -> Análise pela IA -> resultado -> Usuário / Administrador
+
+## Como as partes se comunicam
+
+O usuário vai usar a interface para cadastrar e consultar denúncias. As informações enviadas serão encaminhadas para o Back-end, que ficará responsável por processar os dados e fazer a comunicação com o banco de dados e a Inteligência Artificial.
+
+Back-end:
+
+O Back-end será responsável pela parte interna do sistema e pelas principais regras do projeto. Ele irá:
+
+Cadastrar usuários;
+Criar e salvar denúncias;
+Controlar o status das ocorrências;
+Armazenar localização e fotos;
+Enviar as denúncias para a IA;
+Permitir que os administradores acompanhem as ocorrências.
+
+Banco de dados:
+
+O banco de dados será usado para armazenar as informações do sistema, como usuários, denúncias, locais, fotos, tipos de problemas e status.
+
+As principais partes serão:
+
+Usuário;
+Administrador;
+Denúncia;
+Localização;
+Foto.
+
+Dessa forma, as informações ficam organizadas e podem ser consultadas ou atualizadas quando necessário.
+
+Inteligência Artificial:
+
+A IA será usada principalmente para ajudar na análise e classificação das denúncias. Por exemplo, ela poderá analisar uma descrição de vazamento ou falta de água e ajudar a identificar o tipo de problema e sua prioridade.
+
+A IA servirá como um apoio ao sistema, enquanto o Back-end continuará responsável pelas regras e pelo funcionamento principal do projeto.
+
+## Por que essas tecnologias foram escolhidas?
+
