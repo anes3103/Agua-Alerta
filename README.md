@@ -209,4 +209,14 @@ Aqui está o diagrama de classes feito com base do escopo à cima.
 
 <img width="537" height="694" alt="image" src="https://github.com/user-attachments/assets/5ad2bc20-8314-48c9-8ce2-96982f54f54e" />
 
+## Arquitetura do Sistema
 
+O sistema Água Alerta foi pensado para facilitar o registro e o acompanhamento de problemas relacionados à água e ao saneamento. Para isso, o sistema será dividido em algumas partes, onde cada uma terá uma função diferente.
+
+Como o sistema vai funcionar:
+
+O usuário vai poder acessar o sistema e cadastrar uma denúncia. Nessa denúncia, ele poderá informar o tipo do problema, colocar uma descrição, informar a localização e adicionar uma foto.
+
+Depois que a denúncia for enviada, o Back-end vai receber essas informações, verificar os dados e salvar a ocorrência no sistema.
+
+Também será feita uma integração com uma Inteligência Artificial. A IA vai ajudar na análise das denúncias, podendo identificar o tipo do problema, analisar a descrição e ajudar a definir a prioridade da ocorrência.
