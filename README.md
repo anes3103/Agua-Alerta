@@ -257,3 +257,13 @@ O Java foi escolhido para o Back-end por facilitar o uso de orientação a objet
 O banco de dados será utilizado para armazenar as informações das denúncias, enquanto a Inteligência Artificial será utilizada para ajudar na análise e organização de dados, principalmente quando houver grande volume de ocorrências.
 
 Com essa divisão, o sistema ficará mais organizado e mais fácil de atualizar ou corrigir quando for necessário.
+
+## Definição do MVP
+
+O MVP do Água Alerta vai ser uma versão mais simples do sistema, mas já com a ideia principal funcionando. O usuário vai poder cadastrar um problema relacionado à água ou saneamento, informando o que aconteceu, onde aconteceu e podendo colocar uma foto.
+
+Depois disso, o sistema vai guardar essas informações e mandar a ocorrência para a IA fazer uma análise inicial. A ideia é que ela ajude a identificar o tipo do problema e entender a prioridade da ocorrência.
+
+Também vai ser possível ver as ocorrências que já foram cadastradas e acompanhar o status delas. Dessa forma, o fluxo principal do projeto já fica funcionando: a pessoa registra o problema, o sistema salva, a IA ajuda na análise e a ocorrência pode ser acompanhada pela comunidade.
+
+Nesse primeiro momento, vamos focar somente no que é necessário para esse fluxo funcionar. As outras ideias podem ser acrescentadas conforme o projeto for avançando.
