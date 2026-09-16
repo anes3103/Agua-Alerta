@@ -211,15 +211,13 @@ Aqui está o diagrama de classes feito com base do escopo à cima.
 
 ## Arquitetura do Sistema
 
-O sistema Água Alerta foi pensado para facilitar o registro e o acompanhamento de problemas relacionados à água e ao saneamento. Para isso, o sistema será dividido em algumas partes, onde cada uma terá uma função diferente.
+O sistema do Água Alerta foi pensado para facilitar o registro e o acompanhamento de problemas relacionados à água e ao saneamento. Para isso, o sistema será dividido em algumas partes, onde cada uma será responsável por uma função dentro da arquitetura
 
 Como o sistema vai funcionar:
 
-O usuário vai poder acessar o sistema e cadastrar uma denúncia. Nessa denúncia, ele poderá informar o tipo do problema, colocar uma descrição, informar a localização e adicionar uma foto.
+O usuário vai poder acessar o sistema e cadastrar uma denúncia. Nessa denúncia, ele poderá informar o tipo do problema, colocar uma descrição, informar a localização e adicionar uma foto. Depois que a denúncia for enviada, o Front-End encaminha essas informações para o Back-end, que vai receber essas informações e salvar a ocorrência no banco de dados.
 
-Depois que a denúncia for enviada, o Back-end vai receber essas informações, verificar os dados e salvar a ocorrência no sistema.
-
-Também será feita uma integração com uma Inteligência Artificial. A IA vai ajudar na análise das denúncias, podendo identificar o tipo do problema, analisar a descrição e ajudar a definir a prioridade da ocorrência.
+Também será feita uma integração com uma Inteligência Artificial. A IA vai ajudar na análise das denúncias, podendo identificar o tipo do problema, analisar a descrição e ajudar a definir a prioridade da ocorrência. Essa comunicação com a IA será feita pelo Back-end.
 
 De uma forma mais resumida o funcionamento será:
 
@@ -229,45 +227,33 @@ Usuário -> Cadastro da Denúncia -> Back-end -> Banco de Dados -> Análise pela
 
 O usuário vai usar a interface para cadastrar e consultar denúncias. As informações enviadas serão encaminhadas para o Back-end, que ficará responsável por processar os dados e fazer a comunicação com o banco de dados e a Inteligência Artificial.
 
-Back-end:
+**Back-end:** O Back-end será responsável pela parte interna do sistema e pelas principais regras do projeto. Ele irá:
 
-O Back-end será responsável pela parte interna do sistema e pelas principais regras do projeto. Ele irá:
+- Cadastrar usuários;
+- Criar e salvar denúncias;
+- Controlar o status das ocorrências;
+- Armazenar localização e fotos;
+- Enviar as denúncias para a IA;
+- Permitir que os administradores acompanhem as ocorrências.
 
-Cadastrar usuários;
-Criar e salvar denúncias;
-Controlar o status das ocorrências;
-Armazenar localização e fotos;
-Enviar as denúncias para a IA;
-Permitir que os administradores acompanhem as ocorrências.
-
-Banco de dados:
-
-O banco de dados será usado para armazenar as informações do sistema, como usuários, denúncias, locais, fotos, tipos de problemas e status.
+**Banco de dados:** O banco de dados será usado para armazenar as informações do sistema, como usuários, denúncias, locais, fotos, tipos de problemas e status.
 
 As principais partes serão:
 
-Usuário;
-Administrador;
-Denúncia;
-Localização;
-Foto.
+- Usuário;
+- Administrador;
+- Denúncia;
+- Localização;
+- Foto.
 
-Dessa forma, as informações ficam organizadas e podem ser consultadas ou atualizadas quando necessário.
+Dessa forma, as informações ficam organizadas e podem ser acessadas e atualizadas pelo sistema quando necessário.
 
-Inteligência Artificial:
-
-A IA será usada principalmente para ajudar na análise e classificação das denúncias. Por exemplo, ela poderá analisar uma descrição de vazamento ou falta de água e ajudar a identificar o tipo de problema e sua prioridade.
-
-A IA servirá como um apoio ao sistema, enquanto o Back-end continuará responsável pelas regras e pelo funcionamento principal do projeto.
+**Inteligência Artificial:** A IA será usada principalmente para ajudar na análise e classificação das denúncias. Por exemplo, ela poderá analisar uma descrição de vazamento ou falta de água e ajudar a identificar o tipo de problema e sua prioridade. Ela servirá como um apoio na análise das ocorrências, enquanto o Back-end continuará responsável pelas regras e pelo funcionamento principal do projeto.
 
 ## Por que essas tecnologias foram escolhidas?
 
-O Java foi escolhido para o Back-end por trabalhar bem com orientação a objetos, que é utilizada no projeto.
+O Java foi escolhido para o Back-end por facilitar o uso de orientação a objetos no projeto. A API será responsável por ligar a interface ao Back-end, fazendo com que ocorra a troca de informações entre eles.
 
-A API ajuda na comunicação entre a interface e o Back-end, fazendo com que cada parte do sistema tenha sua própria função.
-
-O banco de dados será utilizado para armazenar as informações das denúncias e facilitar o acesso a elas quando necessário.
-
-A Inteligência Artificial será utilizada para ajudar na análise e organização das denúncias, principalmente quando houver muitas ocorrências.
+O banco de dados será utilizado para armazenar as informações das denúncias, enquanto a Inteligência Artificial será utilizada para ajudar na análise e organização de dados, principalmente quando houver grande volume de ocorrências.
 
 Com essa divisão, o sistema ficará mais organizado e mais fácil de atualizar ou corrigir quando for necessário.
