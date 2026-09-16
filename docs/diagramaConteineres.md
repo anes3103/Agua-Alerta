@@ -15,3 +15,18 @@ Gemini: escolhido como agente/serviço de IA por oferecer recursos de inteligên
 Em conjunto, essas tecnologias permitem que o Água Alerta tenha uma aplicação web acessível, um backend responsável pelo processamento, um banco para persistência dos dados e uma IA para auxiliar na análise das denúncias.
 
 ![alt text](469ddcc0-46ee-406c-a7e7-a63fda5cb214.jpg)
+
+
+# Diagrama C4 — Água Alerta
+
+Este diagrama representa o **contexto do sistema Água Alerta** e suas principais interações.
+
+O **Usuário/Cidadão** registra uma denúncia no sistema, enviando os dados da ocorrência. O **Água Alerta** encaminha esses dados para uma **IA externa**, responsável por analisar e classificar a denúncia.
+
+Após a análise, a ocorrência é encaminhada aos **Órgãos Responsáveis**, que também são externos ao sistema e ficam responsáveis por analisar e solucionar o problema.
+
+Durante o processo, os órgãos enviam atualizações ao Água Alerta, que repassa o **status da ocorrência ao usuário**, permitindo seu acompanhamento.
+
+### Fluxo principal
+
+**Usuário → Água Alerta → IA → Água Alerta → Órgãos Responsáveis → Água Alerta → Usuário**
