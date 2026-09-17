@@ -267,3 +267,42 @@ Depois disso, o sistema vai guardar essas informações e mandar a ocorrência p
 Também vai ser possível ver as ocorrências que já foram cadastradas e acompanhar o status delas. Dessa forma, o fluxo principal do projeto já fica funcionando: a pessoa registra o problema, o sistema salva, a IA ajuda na análise e a ocorrência pode ser acompanhada pela comunidade.
 
 Nesse primeiro momento, vamos focar somente no que é necessário para esse fluxo funcionar. As outras ideias podem ser acrescentadas conforme o projeto for avançando.
+
+
+# Diagrama C4 — Água Alerta
+
+## Diagrama de Contexto:
+
+Este diagrama representa o **contexto do sistema Água Alerta** e suas principais interações.
+
+O **Usuário/Cidadão** registra uma denúncia no sistema, enviando os dados da ocorrência. O **Água Alerta** encaminha esses dados para uma **IA externa**, responsável por analisar e classificar a denúncia.
+
+Após a análise, a ocorrência é encaminhada aos **Órgãos Responsáveis**, como o Cagece, por exemplo, que também são externos ao sistema e ficam responsáveis por analisar e solucionar o problema.
+
+Durante o processo, os órgãos enviam atualizações ao Água Alerta, que repassa o **status da ocorrência ao usuário**, permitindo seu acompanhamento.
+
+### Fluxo principal
+
+**Usuário → Água Alerta → IA → Água Alerta → Órgãos Responsáveis → Água Alerta → Usuário**
+
+![Diagrama de Contexto](./Diagrama%20de%20Contexto.jpg)
+
+## Diagrama de Conteineres
+
+### Motivo das tecnologias escolhidas
+
+**HTML:** utilizado para estruturar a aplicação web, formando a base das páginas que serão acessadas pelo usuário.
+
+**CSS:** responsável pela aparência, organização e responsividade da interface.
+
+**JavaScript:** escolhido para o Front-end principalmente pela familiaridade da equipe com a linguagem e pela facilidade de compreender e manipular a arquitetura do código. Isso facilita o desenvolvimento e a manutenção da aplicação.
+
+**Java:** escolhido para o Backend, responsável pelas regras de negócio, autenticação, processamento das denúncias e comunicação com o banco de dados e serviços externos. Também atende ao requisito de utilização de Java no projeto.
+
+**PostgreSQL + PostGIS:** o PostgreSQL foi escolhido principalmente pela possibilidade de utilizar o PostGIS, que permite trabalhar com dados geográficos e consultas espaciais. Isso é importante para o Água Alerta, já que as denúncias possuem uma localização e o sistema poderá trabalhar com informações relacionadas à posição geográfica das ocorrências.
+
+**Gemini:** escolhido como agente/serviço de IA por oferecer recursos de inteligência artificial que podem ser integrados ao sistema e utilizados para analisar e auxiliar na classificação das denúncias, além de possuir opções de uso gratuito dentro dos limites disponíveis.
+
+Em conjunto, essas tecnologias permitem que o Água Alerta tenha uma aplicação web acessível, um backend responsável pelo processamento, um banco para persistência dos dados e uma IA para auxiliar na análise das denúncias.
+
+![Diagrama de Contêineres](./Diagrama%20de%20Conteineres.jpg)
