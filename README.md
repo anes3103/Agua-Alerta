@@ -285,7 +285,7 @@ Durante o processo, os órgãos enviam atualizações ao Água Alerta, que repas
 
 **Usuário → Água Alerta → IA → Água Alerta → Órgãos Responsáveis → Água Alerta → Usuário**
 
-![Diagrama de Contexto](./Diagrama%20de%20Contexto.jpg)
+![Diagrama de Contexto](docs/Diagrama%20de%20contexto%20modo%20C4%20Nível%201.jpeg)
 
 ## Diagrama de Conteineres
 
@@ -305,4 +305,4 @@ Durante o processo, os órgãos enviam atualizações ao Água Alerta, que repas
 
 Em conjunto, essas tecnologias permitem que o Água Alerta tenha uma aplicação web acessível, um backend responsável pelo processamento, um banco para persistência dos dados e uma IA para auxiliar na análise das denúncias.
 
-![Diagrama de Contêineres](./Diagrama%20de%20Conteineres.jpg)
+![Diagrama de Conteineres](docs/Diagrama%20de%20Conteineres%20C4%20nv2.jpg)
