@@ -22,6 +22,19 @@ CREATE TABLE localizacao (
     longitude DOUBLE PRECISION -- Armazena números decimais da longitude.
 );
 
+/* Tabela de Tipos de Ocorrência */
+CREATE TABLE tipo_ocorrencia (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO tipo_ocorrencia (nome) VALUES
+('Vazamento de água'),
+('Esgoto a céu aberto'),
+('Água contaminada ou alteração na qualidade'),
+('Falta de água ou desabastecimento'),
+('Poluição de rios e mananciais');
+
 
 /* Tabela de Denúncia */
 CREATE TABLE denuncia (
@@ -30,11 +43,12 @@ CREATE TABLE denuncia (
     descricao TEXT NOT NULL, -- TEXT permite armazenar textos maiores.
     data TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Armazena data e hora automaticamente.
     status VARCHAR(30) NOT NULL DEFAULT 'PENDENTE',-- Define "PENDENTE" como status inicial.
-    tipo_problema VARCHAR(50) NOT NULL, -- Armazena o tipo do problema.
-
+    
+    tipo_ocorrencia_id INT NOT NULL, -- Armazena o tipo da ocorrencia.
     usuario_id INT NOT NULL, -- Armazena o ID do usuário.
     localizacao_id INT NOT NULL, -- Armazena o ID da localização.
 
+    FOREIGN KEY (tipo_ocorrencia_id) REFERENCES tipo_ocorrencia(id),
     FOREIGN KEY (usuario_id) REFERENCES usuario(id), -- Liga a denúncia ao usuário.
     FOREIGN KEY (localizacao_id) REFERENCES localizacao(id) -- Liga a denúncia à localização.
 );
