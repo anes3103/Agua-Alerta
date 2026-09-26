@@ -1,6 +1,6 @@
 /* Tabela de Usuários */
 CREATE TABLE usuario (
-    id SERIAL PRIMARY KEY, -- Cria um ID automático e único.
+    id SERIAL PRIMARY KEY, -- Cria um ID automático e único. 
     nome VARCHAR(100) NOT NULL, -- VARCHAR armazena texto de até 100 caracteres.
     email VARCHAR(150) NOT NULL UNIQUE, -- UNIQUE impede e-mails repetidos.
     senha VARCHAR(255) NOT NULL,
