@@ -1,5 +1,6 @@
 package br.com.aguaalerta.controller;
 
+import br.com.aguaalerta.dto.UsuarioRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +18,11 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public String cadastrarUsuario(@RequestBody String dados) {
-        return "Usuário cadastrado com sucesso!";
+public String cadastrarUsuario(@RequestBody UsuarioRequest usuario) {
+    return "Usuário recebido: " + usuario.getNome()
+            + " | E-mail: " + usuario.getEmail()
+            + " | Tipo: " + usuario.getTipoUsuario();
+
     }
 
     @PutMapping("/{id}")

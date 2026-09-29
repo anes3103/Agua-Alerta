@@ -1,5 +1,6 @@
 package br.com.aguaalerta.controller;
 
+import br.com.aguaalerta.dto.FotoRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +18,11 @@ public class FotoController {
     }
 
     @PostMapping
-    public String cadastrarFoto(@RequestBody String dados) {
-        return "Foto cadastrada com sucesso!";
+    public String cadastrarFoto(@RequestBody FotoRequest foto) {
+    return "Foto recebida: "
+            + foto.getNomeArquivo()
+            + " | URL: " + foto.getUrl()
+            + " | Denúncia: " + foto.getDenunciaId();
     }
 
     @PutMapping("/{id}")

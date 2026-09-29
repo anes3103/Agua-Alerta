@@ -1,5 +1,6 @@
 package br.com.aguaalerta.controller;
 
+import br.com.aguaalerta.dto.DenunciaRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +18,13 @@ public class DenunciaController {
     }
 
     @PostMapping
-    public String cadastrarDenuncia(@RequestBody String dados) {
-        return "Denúncia cadastrada com sucesso!";
-    }
+    public String cadastrarDenuncia(@RequestBody DenunciaRequest denuncia) {
+    return "Denúncia recebida: "
+            + denuncia.getTitulo()
+            + " | Tipo: " + denuncia.getTipoOcorrenciaId()
+            + " | Usuário: " + denuncia.getUsuarioId()
+            + " | Localização: " + denuncia.getLocalizacaoId();
+    }  
 
     @PutMapping("/{id}")
     public String atualizarDenuncia(@PathVariable Long id, @RequestBody String dados) {

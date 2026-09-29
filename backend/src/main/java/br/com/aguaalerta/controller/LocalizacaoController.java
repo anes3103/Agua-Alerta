@@ -1,5 +1,6 @@
 package br.com.aguaalerta.controller;
 
+import br.com.aguaalerta.dto.LocalizacaoRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +18,12 @@ public class LocalizacaoController {
     }
 
     @PostMapping
-    public String cadastrarLocalizacao(@RequestBody String dados) {
-        return "Localização cadastrada com sucesso!";
+    public String cadastrarLocalizacao(@RequestBody LocalizacaoRequest localizacao) {
+    return "Localização recebida: "
+            + localizacao.getEndereco()
+            + " | Cidade: " + localizacao.getCidade()
+            + " | Estado: " + localizacao.getEstado();
+
     }
 
     @PutMapping("/{id}")

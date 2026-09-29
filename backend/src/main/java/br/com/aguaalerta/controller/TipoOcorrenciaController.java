@@ -1,5 +1,6 @@
 package br.com.aguaalerta.controller;
 
+import br.com.aguaalerta.dto.TipoOcorrenciaRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +18,8 @@ public class TipoOcorrenciaController {
     }
 
     @PostMapping
-    public String cadastrarTipoOcorrencia(@RequestBody String dados) {
-        return "Tipo de ocorrência cadastrado com sucesso!";
+    public String cadastrarTipoOcorrencia(@RequestBody TipoOcorrenciaRequest tipo) {
+    return "Tipo de ocorrência recebido: " + tipo.getNome();
     }
 
     @PutMapping("/{id}")
