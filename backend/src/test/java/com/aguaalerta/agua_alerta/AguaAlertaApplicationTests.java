@@ -1,10 +1,10 @@
-package br.com.aguaalerta;
+package com.aguaalerta.agua_alerta;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
+class AguaAlertaApplicationTests {
 
 	@Test
 	void contextLoads() {
