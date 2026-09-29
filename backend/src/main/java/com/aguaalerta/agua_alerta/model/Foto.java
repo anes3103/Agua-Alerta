@@ -14,11 +14,10 @@ public class Foto {
     private String url;
     private Date dataUpload;
 
-    // Construtor vazio, exigido pelo JPA
+   
     public Foto() {
     }
 
-    // Seu construtor de sempre, só sem o id
     public Foto(String nomeArquivo, String url) {
         this.nomeArquivo = nomeArquivo;
         this.url = url;
