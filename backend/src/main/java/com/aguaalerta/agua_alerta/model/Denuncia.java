@@ -19,22 +19,30 @@ public class Denuncia {
     @Enumerated(EnumType.STRING)
     private StatusDenuncia status;
 
-    @Enumerated(EnumType.STRING)
-    private TipoProblema tipoProblema;
+    @ManyToOne
+    @JoinColumn(name = "tipo_ocorrencia_id")
+    private TipoOcorrencia tipoOcorrencia;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @OneToOne
+    @JoinColumn(name = "localizacao_id")
     private Localizacao localizacao;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "denuncia", cascade = CascadeType.ALL)
     private List<Foto> fotos;
 
     public Denuncia() {
     }
 
-    public Denuncia(String titulo, String descricao, TipoProblema tipoProblema, Localizacao localizacao) {
+    public Denuncia(String titulo, String descricao, TipoOcorrencia tipoOcorrencia,
+                    Usuario usuario, Localizacao localizacao) {
         this.titulo = titulo;
         this.descricao = descricao;
-        this.tipoProblema = tipoProblema;
+        this.tipoOcorrencia = tipoOcorrencia;
+        this.usuario = usuario;
         this.localizacao = localizacao;
         this.data = new Date();
         this.status = StatusDenuncia.PENDENTE;
@@ -42,7 +50,7 @@ public class Denuncia {
     }
 
     public void registrar() {
-        System.out.println("Denúncia \"" + titulo + "\" registrada (" + tipoProblema + ").");
+        System.out.println("Denúncia \"" + titulo + "\" registrada (" + tipoOcorrencia.getNome() + ").");
     }
 
     public void editar() {
@@ -63,22 +71,59 @@ public class Denuncia {
         return status;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public String getTitulo() {
+        return titulo;
+    }
 
-    public Date getData() { return data; }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-    public TipoProblema getTipoProblema() { return tipoProblema; }
-    public void setTipoProblema(TipoProblema tipoProblema) { this.tipoProblema = tipoProblema; }
+    public String getDescricao() {
+        return descricao;
+    }
 
-    public Localizacao getLocalizacao() { return localizacao; }
-    public void setLocalizacao(Localizacao localizacao) { this.localizacao = localizacao; }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-    public List<Foto> getFotos() { return fotos; }
+    public Date getData() {
+        return data;
+    }
+
+    public TipoOcorrencia getTipoOcorrencia() {
+        return tipoOcorrencia;
+    }
+
+    public void setTipoOcorrencia(TipoOcorrencia tipoOcorrencia) {
+        this.tipoOcorrencia = tipoOcorrencia;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public List<Foto> getFotos() {
+        return fotos;
+    }
 }
