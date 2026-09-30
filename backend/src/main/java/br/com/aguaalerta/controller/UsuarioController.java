@@ -2,36 +2,74 @@ package br.com.aguaalerta.controller;
 
 import br.com.aguaalerta.dto.UsuarioRequest;
 import org.springframework.web.bind.annotation.*;
+import com.aguaalerta.agua_alerta.model.Usuario;
+import com.aguaalerta.agua_alerta.repository.UsuarioRepository;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
+    private final UsuarioRepository usuarioRepository;
+
+public UsuarioController(UsuarioRepository usuarioRepository) {
+    this.usuarioRepository = usuarioRepository;
+}
 
     @GetMapping
-    public String listarUsuarios() {
-        return "Lista de usuários";
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public String buscarUsuario(@PathVariable Long id) {
-        return "Usuário de ID: " + id;
+    public Usuario buscarUsuario(@PathVariable Long id) {
+    return usuarioRepository.findById(id).orElse(null);
+}
+
+  @PostMapping
+public Usuario cadastrarUsuario(@RequestBody UsuarioRequest usuarioRequest) {
+
+    Usuario usuario = new Usuario(
+            usuarioRequest.getNome(),
+            usuarioRequest.getEmail(),
+            usuarioRequest.getSenha(),
+            usuarioRequest.getCpf(),
+            usuarioRequest.getTelefone()
+    );
+
+    return usuarioRepository.save(usuario);
+}
+
+    
+
+  @PutMapping("/{id}")
+public Usuario atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioRequest dados) {
+
+    Usuario usuario = usuarioRepository.findById(id).orElse(null);
+
+    if (usuario == null) {
+        return null;
     }
 
-    @PostMapping
-public String cadastrarUsuario(@RequestBody UsuarioRequest usuario) {
-    return "Usuário recebido: " + usuario.getNome()
-            + " | E-mail: " + usuario.getEmail()
-            + " | Tipo: " + usuario.getTipoUsuario();
+    usuario.setNome(dados.getNome());
+    usuario.setEmail(dados.getEmail());
+    usuario.setSenha(dados.getSenha());
+    usuario.setCpf(dados.getCpf());
+    usuario.setTelefone(dados.getTelefone());
 
+    return usuarioRepository.save(usuario);
+}
+
+   @DeleteMapping("/{id}")
+public String excluirUsuario(@PathVariable Long id) {
+
+    Usuario usuario = usuarioRepository.findById(id).orElse(null);
+
+    if (usuario == null) {
+        return "Usuário não encontrado!";
     }
 
-    @PutMapping("/{id}")
-    public String atualizarUsuario(@PathVariable Long id, @RequestBody String dados) {
-        return "Usuário " + id + " atualizado com sucesso!";
-    }
+    usuarioRepository.deleteById(id);
 
-    @DeleteMapping("/{id}")
-    public String excluirUsuario(@PathVariable Long id) {
-        return "Usuário " + id + " excluído com sucesso!";
-    }
+    return "Usuário " + id + " excluído com sucesso!";
+}
 }

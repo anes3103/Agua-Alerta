@@ -2,6 +2,7 @@ package com.aguaalerta.agua_alerta.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Foto {
@@ -14,14 +15,20 @@ public class Foto {
     private String url;
     private Date dataUpload;
 
+    @ManyToOne
+    @JoinColumn(name = "denuncia_id")
+    @JsonIgnore
+    private Denuncia denuncia;
+
    
     public Foto() {
     }
 
-    public Foto(String nomeArquivo, String url) {
-        this.nomeArquivo = nomeArquivo;
-        this.url = url;
-        this.dataUpload = new Date();
+   public Foto(String nomeArquivo, String url, Denuncia denuncia) {
+    this.nomeArquivo = nomeArquivo;
+    this.url = url;
+    this.denuncia = denuncia;
+    this.dataUpload = new Date();
     }
 
     public void enviar() {
@@ -46,4 +53,12 @@ public class Foto {
     public void setUrl(String url) { this.url = url; }
 
     public Date getDataUpload() { return dataUpload; }
+
+    public Denuncia getDenuncia() {
+    return denuncia;
+}
+
+    public void setDenuncia(Denuncia denuncia) {
+    this.denuncia = denuncia;
+}
 }

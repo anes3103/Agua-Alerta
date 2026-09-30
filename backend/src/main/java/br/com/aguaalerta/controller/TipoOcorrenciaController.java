@@ -2,33 +2,64 @@ package br.com.aguaalerta.controller;
 
 import br.com.aguaalerta.dto.TipoOcorrenciaRequest;
 import org.springframework.web.bind.annotation.*;
+import com.aguaalerta.agua_alerta.model.TipoOcorrencia;
+import com.aguaalerta.agua_alerta.repository.TipoOcorrenciaRepository;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipos-ocorrencia")
 public class TipoOcorrenciaController {
+    private final TipoOcorrenciaRepository tipoOcorrenciaRepository;
 
-    @GetMapping
-    public String listarTiposOcorrencia() {
-        return "Lista de tipos de ocorrência";
+public TipoOcorrenciaController(TipoOcorrenciaRepository tipoOcorrenciaRepository) {
+    this.tipoOcorrenciaRepository = tipoOcorrenciaRepository;
+}
+
+   @GetMapping
+public List<TipoOcorrencia> listarTiposOcorrencia() {
+    return tipoOcorrenciaRepository.findAll();
+}
+
+ @GetMapping("/{id}")
+public TipoOcorrencia buscarTipoOcorrencia(@PathVariable Long id) {
+    return tipoOcorrenciaRepository.findById(id).orElse(null);
+}
+
+  @PostMapping
+public TipoOcorrencia cadastrarTipoOcorrencia(@RequestBody TipoOcorrenciaRequest dados) {
+
+    TipoOcorrencia tipo = new TipoOcorrencia(dados.getNome());
+
+    return tipoOcorrenciaRepository.save(tipo);
+}
+
+   @PutMapping("/{id}")
+public TipoOcorrencia atualizarTipoOcorrencia(
+        @PathVariable Long id,
+        @RequestBody TipoOcorrenciaRequest dados) {
+
+    TipoOcorrencia tipo = tipoOcorrenciaRepository.findById(id).orElse(null);
+
+    if (tipo == null) {
+        return null;
     }
 
-    @GetMapping("/{id}")
-    public String buscarTipoOcorrencia(@PathVariable Long id) {
-        return "Tipo de ocorrência de ID: " + id;
+    tipo.setNome(dados.getNome());
+
+    return tipoOcorrenciaRepository.save(tipo);
+}
+ @DeleteMapping("/{id}")
+public String excluirTipoOcorrencia(@PathVariable Long id) {
+
+    TipoOcorrencia tipo = tipoOcorrenciaRepository.findById(id).orElse(null);
+
+    if (tipo == null) {
+        return "Tipo de ocorrência não encontrado!";
     }
 
-    @PostMapping
-    public String cadastrarTipoOcorrencia(@RequestBody TipoOcorrenciaRequest tipo) {
-    return "Tipo de ocorrência recebido: " + tipo.getNome();
-    }
+    tipoOcorrenciaRepository.deleteById(id);
 
-    @PutMapping("/{id}")
-    public String atualizarTipoOcorrencia(@PathVariable Long id, @RequestBody String dados) {
-        return "Tipo de ocorrência " + id + " atualizado com sucesso!";
-    }
+    return "Tipo de ocorrência " + id + " excluído com sucesso!";
+}
 
-    @DeleteMapping("/{id}")
-    public String excluirTipoOcorrencia(@PathVariable Long id) {
-        return "Tipo de ocorrência " + id + " excluído com sucesso!";
-    }
 }
