@@ -36,11 +36,18 @@ public class Usuario {
         System.out.println("Tentando login de " + email + "...");
         return true;
     }
+    public Denuncia criarDenuncia(String titulo, String descricao, TipoOcorrencia tipoOcorrencia, Localizacao localizacao) {
+    Denuncia novaDenuncia = new Denuncia(
+            titulo,
+            descricao,
+            tipoOcorrencia,
+            this,
+            localizacao
+    );
 
-    public Denuncia criarDenuncia(String titulo, String descricao, TipoProblema tipoProblema, Localizacao localizacao) {
-        Denuncia novaDenuncia = new Denuncia(titulo, descricao, tipoProblema, localizacao);
-        System.out.println(nome + " criou uma nova denúncia.");
-        return novaDenuncia;
+    System.out.println(nome + " criou uma nova denúncia.");
+
+    return novaDenuncia;
     }
 
     public void editarPerfil() {
