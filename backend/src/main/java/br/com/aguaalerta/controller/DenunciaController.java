@@ -1,120 +1,68 @@
 package br.com.aguaalerta.controller;
 
 import br.com.aguaalerta.dto.DenunciaRequest;
-import org.springframework.web.bind.annotation.*;
+import br.com.aguaalerta.service.DenunciaService;
 import com.aguaalerta.agua_alerta.model.Denuncia;
-import com.aguaalerta.agua_alerta.repository.DenunciaRepository;
-import com.aguaalerta.agua_alerta.repository.UsuarioRepository;
-import com.aguaalerta.agua_alerta.repository.LocalizacaoRepository;
-import com.aguaalerta.agua_alerta.repository.TipoOcorrenciaRepository;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import com.aguaalerta.agua_alerta.model.Usuario;
-import com.aguaalerta.agua_alerta.model.Localizacao;
-import com.aguaalerta.agua_alerta.model.TipoOcorrencia;
 
 @RestController
 @RequestMapping("/api/denuncias")
-public class DenunciaController { private final DenunciaRepository denunciaRepository;
-private final UsuarioRepository usuarioRepository;
-private final LocalizacaoRepository localizacaoRepository;
-private final TipoOcorrenciaRepository tipoOcorrenciaRepository;
+public class DenunciaController {
 
-public DenunciaController(
-        DenunciaRepository denunciaRepository,
-        UsuarioRepository usuarioRepository,
-        LocalizacaoRepository localizacaoRepository,
-        TipoOcorrenciaRepository tipoOcorrenciaRepository) {
+    private final DenunciaService denunciaService;
 
-    this.denunciaRepository = denunciaRepository;
-    this.usuarioRepository = usuarioRepository;
-    this.localizacaoRepository = localizacaoRepository;
-    this.tipoOcorrenciaRepository = tipoOcorrenciaRepository;
+    public DenunciaController(DenunciaService denunciaService) {
+        this.denunciaService = denunciaService;
     }
 
     @GetMapping
     public List<Denuncia> listarDenuncias() {
-    return denunciaRepository.findAll();
+        return denunciaService.listar();
     }
 
     @GetMapping("/{id}")
     public Denuncia buscarDenuncia(@PathVariable Long id) {
-    return denunciaRepository.findById(id).orElse(null);
+        return denunciaService.buscarPorId(id);
     }
 
-   @PostMapping
-public Denuncia cadastrarDenuncia(@RequestBody DenunciaRequest dados) {
+    @PostMapping
+    public Denuncia cadastrarDenuncia(@RequestBody DenunciaRequest dados) {
 
-    TipoOcorrencia tipoOcorrencia = tipoOcorrenciaRepository
-            .findById(dados.getTipoOcorrenciaId())
-            .orElse(null);
-
-    Usuario usuario = usuarioRepository
-            .findById(dados.getUsuarioId())
-            .orElse(null);
-
-    Localizacao localizacao = localizacaoRepository
-            .findById(dados.getLocalizacaoId())
-            .orElse(null);
-
-    if (tipoOcorrencia == null || usuario == null || localizacao == null) {
-        return null;
+        return denunciaService.criar(
+                dados.getTitulo(),
+                dados.getDescricao(),
+                dados.getTipoOcorrenciaId(),
+                dados.getUsuarioId(),
+                dados.getLocalizacaoId()
+        );
     }
 
-    Denuncia denuncia = new Denuncia(
-            dados.getTitulo(),
-            dados.getDescricao(),
-            tipoOcorrencia,
-            usuario,
-            localizacao
-    );
+    @PutMapping("/{id}")
+    public Denuncia atualizarDenuncia(
+            @PathVariable Long id,
+            @RequestBody DenunciaRequest dados) {
 
-    return denunciaRepository.save(denuncia);
-}
-   @PutMapping("/{id}")
-public Denuncia atualizarDenuncia(@PathVariable Long id, @RequestBody DenunciaRequest dados) {
-
-    Denuncia denuncia = denunciaRepository.findById(id).orElse(null);
-
-    if (denuncia == null) {
-        return null;
+        return denunciaService.atualizar(
+                id,
+                dados.getTitulo(),
+                dados.getDescricao(),
+                dados.getTipoOcorrenciaId(),
+                dados.getUsuarioId(),
+                dados.getLocalizacaoId()
+        );
     }
 
-    TipoOcorrencia tipoOcorrencia = tipoOcorrenciaRepository
-            .findById(dados.getTipoOcorrenciaId())
-            .orElse(null);
+    @DeleteMapping("/{id}")
+    public String excluirDenuncia(@PathVariable Long id) {
 
-    Usuario usuario = usuarioRepository
-            .findById(dados.getUsuarioId())
-            .orElse(null);
+        boolean excluida = denunciaService.excluir(id);
 
-    Localizacao localizacao = localizacaoRepository
-            .findById(dados.getLocalizacaoId())
-            .orElse(null);
+        if (!excluida) {
+            return "Denúncia não encontrada!";
+        }
 
-    if (tipoOcorrencia == null || usuario == null || localizacao == null) {
-        return null;
-    }
-
-    denuncia.setTitulo(dados.getTitulo());
-    denuncia.setDescricao(dados.getDescricao());
-    denuncia.setTipoOcorrencia(tipoOcorrencia);
-    denuncia.setUsuario(usuario);
-    denuncia.setLocalizacao(localizacao);
-
-    return denunciaRepository.save(denuncia);
-    }
-
-   @DeleteMapping("/{id}")
-public String excluirDenuncia(@PathVariable Long id) {
-
-    Denuncia denuncia = denunciaRepository.findById(id).orElse(null);
-
-    if (denuncia == null) {
-        return "Denúncia não encontrada!";
-    }
-
-    denunciaRepository.deleteById(id);
-
-    return "Denúncia " + id + " excluída com sucesso!";
+        return "Denúncia " + id + " excluída com sucesso!";
     }
 }
