@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tipos-ocorrencia")
+@CrossOrigin("*")
 public class TipoOcorrenciaController {
     private final TipoOcorrenciaRepository tipoOcorrenciaRepository;
 

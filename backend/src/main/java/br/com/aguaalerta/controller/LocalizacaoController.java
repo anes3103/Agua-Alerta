@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/localizacoes")
+@CrossOrigin("*")
 public class LocalizacaoController {
 
     private final LocalizacaoRepository localizacaoRepository;
