@@ -306,3 +306,25 @@ Durante o processo, os órgãos enviam atualizações ao Água Alerta, que repas
 Em conjunto, essas tecnologias permitem que o Água Alerta tenha uma aplicação web acessível, um backend responsável pelo processamento, um banco para persistência dos dados e uma IA para auxiliar na análise das denúncias.
 
 ![Diagrama de Conteineres](docs/Diagrama%20de%20Conteineres%20C4%20nv2.jpg)
+
+## Executar a aplicação localmente
+
+O PostgreSQL deve estar instalado e em execução na porta `5432`, com um banco chamado `agua_alerta` e o usuário `postgres`. Para desenvolvimento local, a senha padrão é `3103`; se necessário, ela pode ser sobrescrita pela variável de ambiente `DB_PASSWORD`. Esse padrão é apenas para desenvolvimento, não para produção.
+
+Com Java 17 ou superior, inicie o backend na pasta `backend`:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+No Windows, também é possível executar `iniciar-agua-alerta.bat` na raiz do projeto. O script usa o Maven Wrapper do próprio projeto e não depende de uma variável pessoal do Windows.
+
+No macOS ou Linux, use:
+
+```sh
+./mvnw spring-boot:run
+```
+
+Depois, abra `http://localhost:8080` para acessar a interface servida pelo próprio backend em `src/main/resources/static/`.
+
+Os tipos de ocorrência iniciais são criados quando o backend inicia. Cadastro, login e denúncias dependem do backend e do banco de dados em execução.

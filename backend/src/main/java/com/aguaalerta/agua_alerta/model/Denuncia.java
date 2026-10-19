@@ -126,4 +126,25 @@ public class Denuncia {
     public List<Foto> getFotos() {
         return fotos;
     }
+
+    public void setFotos(List<Foto> fotos) {
+        this.fotos = fotos;
+    }
+
+    public void setStatus(StatusDenuncia status) {
+        this.status = status;
+    }
+
+    @PrePersist
+    public void prepararDados() {
+        if (data == null) {
+            data = new Date();
+        }
+        if (status == null) {
+            status = StatusDenuncia.PENDENTE;
+        }
+        if (fotos == null) {
+            fotos = new ArrayList<>();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.aguaalerta.agua_alerta.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Usuario {
 
     private String nome;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
     private String cpf;
     private String telefone;

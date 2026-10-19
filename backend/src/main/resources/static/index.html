@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Água Alerta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topo">
+  <a class="logo" href="#inicio"><span class="gota" aria-hidden="true"></span>Água Alerta</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  <nav id="menu">
+    <a href="#inicio">Início</a>
+    <a href="#denuncias">Denúncias</a>
+    <a href="#nova">Nova denúncia</a>
+    <a href="#conta">Entrar</a>
+    <a href="#perfil">Meu perfil</a>
+  </nav>
+</header>
+
+<div id="aviso-api" class="aviso" hidden>
+  Não foi possível conectar ao back-end. Verifique se o Spring Boot está rodando em <code>http://localhost:8080</code>.
+</div>
+<div id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></div>
+
+<main>
+  <section id="inicio" class="pagina">
+    <div class="hero">
+      <h1>Viu um problema com a água ou o esgoto no seu bairro? Registre.</h1>
+      <p>O Água Alerta reúne denúncias da comunidade sobre água e saneamento, com local, descrição e status de atendimento.</p>
+      <div class="acoes">
+        <a class="btn" href="#nova">Registrar denúncia</a>
+        <a class="btn sec" href="#denuncias">Ver denúncias</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

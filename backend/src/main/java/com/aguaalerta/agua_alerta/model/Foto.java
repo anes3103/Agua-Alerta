@@ -61,4 +61,11 @@ public class Foto {
     public void setDenuncia(Denuncia denuncia) {
     this.denuncia = denuncia;
 }
+
+    @PrePersist
+    public void prepararData() {
+        if (dataUpload == null) {
+            dataUpload = new Date();
+        }
+    }
 }
