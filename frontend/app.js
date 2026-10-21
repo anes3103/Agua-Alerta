@@ -190,6 +190,38 @@ function numeroOuNulo(v) {
   return Number.isNaN(n) ? null : n;
 }
 
+const semAcento = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+const REGRAS_TIPO = [
+  ["esgoto", "esgoto"],
+  ["contamin", "contaminada"],
+  ["falta", "falta"],
+  ["desabastec", "falta"],
+  ["polu", "rios"],
+  ["manancial", "rios"],
+  ["vazamento", "vazamento"]
+];
+
+function lerAnalise(texto) {
+  const analise = {};
+  String(texto).split("\n").forEach((linha) => {
+    const i = linha.indexOf(":");
+    if (i === -1) return;
+    analise[linha.slice(0, i).trim().toLowerCase()] = linha.slice(i + 1).trim();
+  });
+  return analise;
+}
+
+function escolherTipo(tipoIA, sel) {
+  const texto = semAcento(tipoIA);
+  for (const [palavraIA, palavraOpcao] of REGRAS_TIPO) {
+    if (!texto.includes(palavraIA)) continue;
+    const opcao = [...sel.options].find((o) => semAcento(o.text).includes(palavraOpcao));
+    if (opcao) return opcao;
+  }
+  return null;
+}
+
 function validar(form, regras) {
   let ok = true;
   form.querySelectorAll(".erro-campo").forEach((e) => e.remove());
@@ -244,6 +276,7 @@ async function enviarDenuncia(ev) {
   await comCarregando(f, async () => {
     await criarDenuncia(corpo);
     f.reset();
+        $("#analiseIA").hidden = true;
     mostrarMensagem("Denúncia registrada com sucesso!", "ok");
   });
 }
@@ -427,9 +460,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const aberto = $("#menu").classList.toggle("aberto");
     $("#menuBtn").setAttribute("aria-expanded", aberto);
   });
+    $("#btnSugerir").addEventListener("click", sugerirTipo);
   $("#formDenuncia").addEventListener("submit", enviarDenuncia);
   $("#formCadastro").addEventListener("submit", enviarCadastro);
   $("#formLogin").addEventListener("submit", enviarLogin);
   window.addEventListener("hashchange", navegar);
   navegar();
 });
+
+async function sugerirTipo() {
+  const f = $("#formDenuncia");
+  const descricao = f.elements.descricao.value.trim();
+  if (!descricao) {
+    mostrarMensagem("Escreva a descrição antes de pedir a sugestão.", "erro");
+    return;
+  }
+  const btn = $("#btnSugerir");
+  const caixa = $("#analiseIA");
+  btn.disabled = true;
+  btn.textContent = "Analisando...";
+  limparMensagem();
+  try {
+    const analise = lerAnalise(await analisarDenuncia(descricao));
+    if (!analise.tipo) {
+      mostrarMensagem("A IA não identificou um problema de água ou esgoto nessa descrição.", "erro");
+      caixa.hidden = true;
+      return;
+    }
+    const sel = f.elements.tipoOcorrencia;
+    const opcao = escolherTipo(analise.tipo, sel);
+    if (opcao) sel.value = opcao.value;
+    caixa.textContent = `Sugestão da IA: ${analise.tipo} | Gravidade: ${analise.gravidade || "não informada"} | ${analise.resumo || ""}`;
+    if (!opcao) caixa.textContent += " | Escolha o tipo manualmente.";
+    caixa.hidden = false;
+  } catch (e) {
+    mostrarMensagem(erroAmigavel(e) + " Você pode escolher o tipo manualmente.", "erro");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Sugerir tipo com IA";
+  }
+}

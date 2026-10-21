@@ -574,6 +574,15 @@ textarea.invalido:focus {
   box-shadow: 0 0 0 4px rgba(198, 40, 40, .11);
 }
 
+.analise {
+  padding: .8rem 1rem;
+  border: 1px solid var(--azul-borda);
+  border-radius: 11px;
+  color: var(--azul-escuro);
+  background: var(--azul-fundo);
+  font-size: .94rem;
+}
+
 .erro-campo {
   color: var(--erro);
   font-size: .84rem;

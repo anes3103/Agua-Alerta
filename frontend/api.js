@@ -14,7 +14,9 @@ const ENDPOINTS = {
   cadastrarUsuario:  { metodo: "POST",   caminho: "/api/usuarios" },
   login:             { metodo: "POST",   caminho: "/api/usuarios/login" },
   buscarUsuario:     { metodo: "GET",    caminho: "/api/usuarios/{id}" },
-  atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" }
+  atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
+   atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
+  analisarDenuncia:  { metodo: "POST",   caminho: "/api/gemini/analisar" }
 };
 
 async function requisitar(nome, { id, corpo } = {}) {
@@ -61,3 +63,4 @@ const cadastrarUsuario = (corpo) => requisitar("cadastrarUsuario", { corpo });
 const login = (corpo) => requisitar("login", { corpo });
 const buscarUsuario = (id) => requisitar("buscarUsuario", { id });
 const atualizarUsuario = (id, corpo) => requisitar("atualizarUsuario", { id, corpo });
+const analisarDenuncia = (descricao) => requisitar("analisarDenuncia", { corpo: { descricao } });
