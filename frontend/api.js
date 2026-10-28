@@ -15,7 +15,6 @@ const ENDPOINTS = {
   login:             { metodo: "POST",   caminho: "/api/usuarios/login" },
   buscarUsuario:     { metodo: "GET",    caminho: "/api/usuarios/{id}" },
   atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
-   atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
   analisarDenuncia:  { metodo: "POST",   caminho: "/api/gemini/analisar" }
 };
 

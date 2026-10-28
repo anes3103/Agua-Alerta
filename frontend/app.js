@@ -192,34 +192,19 @@ function numeroOuNulo(v) {
 
 const semAcento = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-const REGRAS_TIPO = [
-  ["esgoto", "esgoto"],
-  ["contamin", "contaminada"],
-  ["falta", "falta"],
-  ["desabastec", "falta"],
-  ["polu", "rios"],
-  ["manancial", "rios"],
-  ["vazamento", "vazamento"]
-];
+// código que a IA devolve -> palavra que aparece no nome do tipo no select
+const PALAVRA_TIPO = {
+  VAZAMENTO: "vazamento",
+  ESGOTO: "esgoto",
+  CONTAMINACAO: "contaminada",
+  FALTA_AGUA: "falta",
+  POLUICAO: "rios"
+};
 
-function lerAnalise(texto) {
-  const analise = {};
-  String(texto).split("\n").forEach((linha) => {
-    const i = linha.indexOf(":");
-    if (i === -1) return;
-    analise[linha.slice(0, i).trim().toLowerCase()] = linha.slice(i + 1).trim();
-  });
-  return analise;
-}
-
-function escolherTipo(tipoIA, sel) {
-  const texto = semAcento(tipoIA);
-  for (const [palavraIA, palavraOpcao] of REGRAS_TIPO) {
-    if (!texto.includes(palavraIA)) continue;
-    const opcao = [...sel.options].find((o) => semAcento(o.text).includes(palavraOpcao));
-    if (opcao) return opcao;
-  }
-  return null;
+function escolherTipo(codigo, sel) {
+  const palavra = PALAVRA_TIPO[codigo];
+  if (!palavra) return null;
+  return [...sel.options].find((o) => semAcento(o.text).includes(palavra)) || null;
 }
 
 function validar(form, regras) {
@@ -276,7 +261,7 @@ async function enviarDenuncia(ev) {
   await comCarregando(f, async () => {
     await criarDenuncia(corpo);
     f.reset();
-        $("#analiseIA").hidden = true;
+    $("#analiseIA").hidden = true;
     mostrarMensagem("Denúncia registrada com sucesso!", "ok");
   });
 }
@@ -460,13 +445,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const aberto = $("#menu").classList.toggle("aberto");
     $("#menuBtn").setAttribute("aria-expanded", aberto);
   });
-    $("#btnSugerir").addEventListener("click", sugerirTipo);
+  $("#btnSugerir").addEventListener("click", sugerirTipo);
   $("#formDenuncia").addEventListener("submit", enviarDenuncia);
   $("#formCadastro").addEventListener("submit", enviarCadastro);
   $("#formLogin").addEventListener("submit", enviarLogin);
   window.addEventListener("hashchange", navegar);
   navegar();
 });
+
+/* ---------- IA: sugestão de tipo, gravidade e título ---------- */
+const NOME_GRAVIDADE = { BAIXA: "Baixa", MEDIA: "Média", ALTA: "Alta" };
+
+function mostrarAnalise(caixa, a, opcao) {
+  const resumo = [
+    `Gravidade: ${NOME_GRAVIDADE[a.gravidade] || "não informada"}`,
+    a.motivoGravidade,
+    a.resumo
+  ].filter(Boolean).join(" | ");
+
+  const p1 = document.createElement("p");
+  p1.textContent = "Sugestão da IA: " + resumo + (opcao ? "" : " | Escolha o tipo manualmente.");
+  caixa.replaceChildren(p1);
+
+  if (Array.isArray(a.faltaInformar) && a.faltaInformar.length > 0) {
+    const p2 = document.createElement("p");
+    p2.textContent = "Para ajudar, informe também: " + a.faltaInformar.join(", ") + ".";
+    caixa.appendChild(p2);
+  }
+  caixa.hidden = false;
+}
 
 async function sugerirTipo() {
   const f = $("#formDenuncia");
@@ -481,8 +488,13 @@ async function sugerirTipo() {
   btn.textContent = "Analisando...";
   limparMensagem();
   try {
-    const analise = lerAnalise(await analisarDenuncia(descricao));
-    if (!analise.tipo) {
+    const analise = await analisarDenuncia(descricao);
+    if (typeof analise !== "object" || analise === null) {
+      mostrarMensagem("A IA não conseguiu responder agora. Você pode escolher o tipo manualmente.", "erro");
+      caixa.hidden = true;
+      return;
+    }
+    if (!analise.relevante) {
       mostrarMensagem("A IA não identificou um problema de água ou esgoto nessa descrição.", "erro");
       caixa.hidden = true;
       return;
@@ -490,9 +502,10 @@ async function sugerirTipo() {
     const sel = f.elements.tipoOcorrencia;
     const opcao = escolherTipo(analise.tipo, sel);
     if (opcao) sel.value = opcao.value;
-    caixa.textContent = `Sugestão da IA: ${analise.tipo} | Gravidade: ${analise.gravidade || "não informada"} | ${analise.resumo || ""}`;
-    if (!opcao) caixa.textContent += " | Escolha o tipo manualmente.";
-    caixa.hidden = false;
+    if (!f.elements.titulo.value.trim() && analise.tituloSugerido) {
+      f.elements.titulo.value = analise.tituloSugerido;
+    }
+    mostrarAnalise(caixa, analise, opcao);
   } catch (e) {
     mostrarMensagem(erroAmigavel(e) + " Você pode escolher o tipo manualmente.", "erro");
   } finally {

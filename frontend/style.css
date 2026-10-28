@@ -582,7 +582,13 @@ textarea.invalido:focus {
   background: var(--azul-fundo);
   font-size: .94rem;
 }
+.analise p { 
+  margin: 0 0 .4rem;
+}
 
+.analise p:last-child { 
+  margin-bottom: 0; 
+}
 .erro-campo {
   color: var(--erro);
   font-size: .84rem;
