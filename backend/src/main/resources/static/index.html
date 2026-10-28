@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="api-base-url" content="http://localhost:8080">
+  <meta name="theme-color" content="#0b5c9e">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3C16 3 6 14 6 20a10 10 0 0020 0C26 14 16 3 16 3z' fill='%233a8fd1'/%3E%3C/svg%3E">
   <title>Água Alerta</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -20,13 +23,15 @@
 </header>
 
 <div id="aviso-api" class="aviso" hidden>
-  Não foi possível conectar ao back-end. Verifique se o Spring Boot está rodando em <code>http://localhost:8080</code>.
+  Não foi possível conectar ao back-end. Verifique se o Spring Boot está rodando em <code id="endereco-api"></code>.
 </div>
 <div id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></div>
 
 <main>
+  <!-- INÍCIO -->
   <section id="inicio" class="pagina">
     <div class="hero">
+      <span class="selo">ODS 6 · Água potável e saneamento</span>
       <h1>Viu um problema com a água ou o esgoto no seu bairro? Registre.</h1>
       <p>O Água Alerta reúne denúncias da comunidade sobre água e saneamento, com local, descrição e status de atendimento.</p>
       <div class="acoes">
@@ -34,8 +39,112 @@
         <a class="btn sec" href="#denuncias">Ver denúncias</a>
       </div>
     </div>
+
+    <h2>Como funciona</h2>
+    <ol class="passos">
+      <li><strong>Registre</strong> o tipo do problema, a descrição e o local.</li>
+      <li><strong>Acompanhe</strong> o status: pendente, em análise, em andamento ou resolvida.</li>
+      <li><strong>Compartilhe</strong> com a comunidade, que vê as denúncias na lista pública.</li>
+    </ol>
+
+    <h2>Problemas que você pode registrar</h2>
+    <ul class="tipos">
+      <li><span class="icone" aria-hidden="true">💧</span>Vazamento de água</li>
+      <li><span class="icone" aria-hidden="true">🚧</span>Esgoto a céu aberto</li>
+      <li><span class="icone" aria-hidden="true">🧪</span>Água contaminada ou alteração na qualidade</li>
+      <li><span class="icone" aria-hidden="true">🚱</span>Falta de água ou desabastecimento</li>
+      <li><span class="icone" aria-hidden="true">🏞️</span>Poluição de rios e mananciais</li>
+    </ul>
+
+    <div class="ods">
+      <h2>ODS 6: Água potável e saneamento</h2>
+      <p>O projeto se conecta às metas 6.3 (qualidade da água e redução da poluição), 6.6 (proteção dos ecossistemas ligados à água) e 6.b (participação da comunidade), da Agenda 2030 da ONU.</p>
+    </div>
+  </section>
+
+  <!-- LISTA DE DENÚNCIAS -->
+  <section id="denuncias" class="pagina" hidden>
+    <h1>Denúncias</h1>
+    <p class="sub">Problemas de água e saneamento registrados pela comunidade.</p>
+    <div id="lista" class="grade"></div>
+  </section>
+
+  <!-- NOVA DENÚNCIA (campos da entidade Denuncia + Localizacao + Foto) -->
+  <section id="nova" class="pagina" hidden>
+    <h1>Nova denúncia</h1>
+    <p class="sub">Campos com * são obrigatórios. Quanto mais detalhes do local, melhor.</p>
+    <form id="formDenuncia" class="form" novalidate>
+      <label>Título
+        <input name="titulo" maxlength="150" placeholder="Ex.: Vazamento na rua principal">
+      </label>
+      <label>Tipo do problema *
+        <select name="tipoOcorrencia" required></select>
+      </label>
+      <label>Descrição *
+        <textarea name="descricao" rows="4" required placeholder="Conte o que está acontecendo, desde quando e como afeta o bairro."></textarea>
+      </label>
+
+            <button class="btn sec" type="button" id="btnSugerir">Sugerir tipo com IA</button>
+      <div id="analiseIA" class="analise" hidden></div>
+      
+      <fieldset>
+        <legend>Localização</legend>
+        <label>Endereço <input name="endereco" maxlength="255" placeholder="Rua, número"></label>
+        <div class="linha">
+          <label>Bairro <input name="bairro" maxlength="100"></label>
+          <label>Cidade <input name="cidade" maxlength="100"></label>
+        </div>
+        <div class="linha">
+          <label>Estado <input name="estado" maxlength="50"></label>
+          <label>CEP <input name="cep" maxlength="10" inputmode="numeric" placeholder="00000-000"></label>
+        </div>
+        
+      </fieldset>
+
+      <label>Link da foto (opcional)
+        <input name="fotoUrl" type="url" maxlength="500" placeholder="https://...">
+        <small>O back-end guarda só o nome e o link da foto; não há envio de arquivo.</small>
+      </label>
+      <button class="btn" type="submit">Enviar denúncia</button>
+    </form>
+  </section>
+
+  <!-- ENTRAR / CADASTRAR (campos da entidade Usuario) -->
+  <section id="conta" class="pagina" hidden>
+    <h1>Entrar ou criar conta</h1>
+    <p class="sub">Você precisa estar logado para registrar denúncias.</p>
+    <div class="duas">
+      <form id="formLogin" class="form" novalidate>
+        <h2>Entrar</h2>
+        <label>E-mail * <input name="email" type="email" required placeholder="voce@email.com"></label>
+        <label>Senha * <input name="senha" type="password" required></label>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+      <form id="formCadastro" class="form" novalidate>
+        <h2>Cadastrar</h2>
+        <label>Nome * <input name="nome" maxlength="100" required></label>
+        <label>E-mail * <input name="email" type="email" maxlength="150" required placeholder="voce@email.com"></label>
+        <label>Senha * <input name="senha" type="password" minlength="6" required placeholder="Mínimo de 6 caracteres"></label>
+        <label>CPF (somente números) <input name="cpf" maxlength="11" inputmode="numeric" placeholder="Somente números"></label>
+        <label>Telefone <input name="telefone" maxlength="20" inputmode="tel" placeholder="(11) 90000-0000"></label>
+        <button class="btn" type="submit">Criar conta</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section id="perfil" class="pagina" hidden>
+    <h1>Meu perfil</h1>
+    <p class="sub">Confira e atualize os dados da sua conta.</p>
+    <div id="perfilConteudo"></div>
   </section>
 </main>
+
+<dialog id="detalhe"></dialog>
+
+<footer class="rodape">
+  <p>Água Alerta · projeto acadêmico alinhado à ODS 6 da ONU.</p>
+</footer>
 
 <script src="api.js"></script>
 <script src="app.js"></script>

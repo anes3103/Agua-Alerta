@@ -11,14 +11,25 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
 
 @Service
 public class GeminiService {
 
-    private static final String GEMINI_URL =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent";
+    private static final String GEMINI_BASE_URL =
+            "https://generativelanguage.googleapis.com/v1beta/models/";
 
-    private static final int MAX_TENTATIVAS = 3;
+    // Modelos na ordem de tentativa: o primeiro é o principal, os outros são reserva.
+    // Se o principal estiver sobrecarregado (503), sem cota (429) ou não existir (404),
+    // o serviço tenta o próximo da lista antes de desistir.
+    private static final List<String> MODELOS = List.of(
+    "gemini-3.5-flash-lite",
+    "gemini-3.8-flash"
+);
+
+    // Tentativas por modelo (só repete em erro 5xx). Com modelo reserva,
+    // é melhor desistir rápido do principal e passar para o próximo.
+    private static final int MAX_TENTATIVAS = 2;
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -100,42 +111,56 @@ public class GeminiService {
                     )
             );
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(GEMINI_URL))
-                    .timeout(Duration.ofSeconds(60))
-                    .header("Content-Type", "application/json")
-                    .header("x-goog-api-key", chaveApi)
-                    .POST(HttpRequest.BodyPublishers.ofString(requestJson))
-                    .build();
+            int ultimoStatus = 0;
+            String ultimoDetalhe = "";
 
-            HttpResponse<String> response = enviarComRetry(request);
+            for (String modelo : MODELOS) {
 
-            int status = response.statusCode();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(GEMINI_BASE_URL + modelo + ":generateContent"))
+                        .timeout(Duration.ofSeconds(60))
+                        .header("Content-Type", "application/json")
+                        .header("x-goog-api-key", chaveApi)
+                        .POST(HttpRequest.BodyPublishers.ofString(requestJson))
+                        .build();
 
-            if (status < 200 || status >= 300) {
+                HttpResponse<String> response = enviarComRetry(request);
 
-                System.out.println("Gemini respondeu " + status + ": "
-                        + extrairMensagemErro(response.body()));
+                int status = response.statusCode();
 
-                if (status == 429) {
-                    throw new GeminiIndisponivelException(
-                            "O limite diário de uso da IA foi atingido. Tente novamente mais tarde ou escolha o tipo manualmente."
-                    );
+                if (status >= 200 && status < 300) {
+                    return validarResposta(extrairTextoResposta(response.body()));
                 }
 
-                if (status >= 500) {
-                    throw new GeminiIndisponivelException(
-                            "A IA está sobrecarregada no momento. Tente novamente em instantes."
-                    );
-                }
+                String detalhe = extrairMensagemErro(response.body());
 
-                throw new IllegalStateException(
-                        "Erro ao consultar o Gemini. Código: " + status
-                                + ". Detalhes: " + extrairMensagemErro(response.body())
+                System.out.println("Gemini respondeu " + status
+                        + " (" + modelo + "): " + detalhe);
+
+                ultimoStatus = status;
+                ultimoDetalhe = detalhe;
+
+                if (!podeTentarOutroModelo(status)) {
+                    break;
+                }
+            }
+
+            if (ultimoStatus == 429) {
+                throw new GeminiIndisponivelException(
+                        "O limite diário de uso da IA foi atingido. Tente novamente mais tarde ou escolha o tipo manualmente."
                 );
             }
 
-            return validarResposta(extrairTextoResposta(response.body()));
+            if (ultimoStatus >= 500) {
+                throw new GeminiIndisponivelException(
+                        "A IA está sobrecarregada no momento. Tente novamente em instantes."
+                );
+            }
+
+            throw new IllegalStateException(
+                    "Erro ao consultar o Gemini. Código: " + ultimoStatus
+                            + ". Detalhes: " + ultimoDetalhe
+            );
 
         } catch (InterruptedException e) {
 
@@ -148,11 +173,20 @@ public class GeminiService {
 
         } catch (IOException e) {
 
+            System.out.println("Falha ao comunicar com o Gemini: " + e);
+
             throw new IllegalStateException(
                     "Não foi possível comunicar com o Gemini.",
                     e
             );
         }
+    }
+
+    // Erros em que vale a pena tentar o modelo reserva:
+    // 404 (modelo não encontrado), 429 (sem cota) e 5xx (sobrecarga).
+    // Outros erros (como 400 e 403, de chave ou pedido inválido) não mudam com outro modelo.
+    private boolean podeTentarOutroModelo(int status) {
+        return status == 404 || status == 429 || status >= 500;
     }
 
     private HttpResponse<String> enviarComRetry(HttpRequest request)

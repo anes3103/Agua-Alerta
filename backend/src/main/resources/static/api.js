@@ -1,4 +1,8 @@
-﻿const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = (
+  window.AGUA_ALERTA_API_URL ||
+  document.querySelector('meta[name="api-base-url"]')?.content ||
+  "http://localhost:8080"
+).replace(/\/$/, "");
 
 const ENDPOINTS = {
   listarDenuncias:   { metodo: "GET",    caminho: "/api/denuncias" },
@@ -10,15 +14,14 @@ const ENDPOINTS = {
   cadastrarUsuario:  { metodo: "POST",   caminho: "/api/usuarios" },
   login:             { metodo: "POST",   caminho: "/api/usuarios/login" },
   buscarUsuario:     { metodo: "GET",    caminho: "/api/usuarios/{id}" },
-  atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" }
+  atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
+   atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
+  analisarDenuncia:  { metodo: "POST",   caminho: "/api/gemini/analisar" }
 };
-
-class ApiIndisponivelError extends Error {}
-function apiDisponivel(nome) { return Boolean(ENDPOINTS[nome]?.caminho); }
 
 async function requisitar(nome, { id, corpo } = {}) {
   const ep = ENDPOINTS[nome];
-  if (!ep?.caminho) throw new ApiIndisponivelError("Rota não configurada.");
+  if (!ep?.caminho) throw new Error("Rota não configurada.");
   const url = API_BASE_URL + ep.caminho.replace("{id}", id ?? "");
   let resposta;
   try {
@@ -28,8 +31,12 @@ async function requisitar(nome, { id, corpo } = {}) {
       body: corpo ? JSON.stringify(corpo) : undefined
     });
   } catch {
-    throw new Error("Não foi possível conectar ao back-end. Inicie o Spring Boot na porta 8080.");
+    const aviso = document.getElementById("aviso-api");
+    if (aviso) aviso.hidden = false;
+    throw new Error(`Não foi possível conectar ao back-end em ${API_BASE_URL}.`);
   }
+  const aviso = document.getElementById("aviso-api");
+  if (aviso) aviso.hidden = true;
   const texto = await resposta.text();
   let dados = null;
   if (texto) { try { dados = JSON.parse(texto); } catch { dados = texto; } }
@@ -56,3 +63,4 @@ const cadastrarUsuario = (corpo) => requisitar("cadastrarUsuario", { corpo });
 const login = (corpo) => requisitar("login", { corpo });
 const buscarUsuario = (id) => requisitar("buscarUsuario", { id });
 const atualizarUsuario = (id, corpo) => requisitar("atualizarUsuario", { id, corpo });
+const analisarDenuncia = (descricao) => requisitar("analisarDenuncia", { corpo: { descricao } });
