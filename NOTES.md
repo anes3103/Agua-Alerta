@@ -16,7 +16,3 @@ lembrando que pra funcionar tem que estar o back e o banco conectados.
 NÃO COMMITAR SENHA NEM CHAVE, não escrever senha nem chave no codigo fonte, tem que ser tudo pelo terminal pq é uma variável, e só vai funcionar no terminal enquanto 
 estiver rodando, dps de dar o `.\mvnw spring-boot:run` adiciona outro terminal, e faz os testes pelo terminal mesmo. 
 
-teste teste teste teste
-como assim teste teste 
-mais teste 
-testando
