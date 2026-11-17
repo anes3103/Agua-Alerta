@@ -243,23 +243,27 @@ async function enviarDenuncia(ev) {
     location.hash = "#conta";
     return;
   }
-  const corpo = {
+ const corpo = {
     titulo: e.titulo.value.trim(),
     descricao: e.descricao.value.trim(),
-    usuario: { id: Number(usuario.id) },
-    tipoOcorrencia: { id: Number(e.tipoOcorrencia.value) },
-    localizacao: {
-      endereco: e.endereco.value.trim(), bairro: e.bairro.value.trim(), cidade: e.cidade.value.trim(),
-      estado: e.estado.value.trim(), cep: e.cep.value.trim(),
-      latitude: 0,
-      longitude: 0
-    },
-    fotos: e.fotoUrl.value.trim()
-      ? [{ nomeArquivo: e.fotoUrl.value.trim().split("/").pop() || "foto", url: e.fotoUrl.value.trim() }]
-      : []
-  };
+    tipoOcorrenciaId: Number(e.tipoOcorrencia.value),
+    usuarioId: Number(usuario.id)
+};
   await comCarregando(f, async () => {
-    await criarDenuncia(corpo);
+    const localizacao = await cadastrarLocalizacao({
+        endereco: e.endereco.value.trim(),
+        bairro: e.bairro.value.trim(),
+        cidade: e.cidade.value.trim(),
+        estado: e.estado.value.trim(),
+        cep: e.cep.value.trim(),
+        latitude: 0,
+        longitude: 0
+    });
+
+    await criarDenuncia({
+        ...corpo,
+        localizacaoId: localizacao.id
+    });
     f.reset();
     $("#analiseIA").hidden = true;
     mostrarMensagem("Denúncia registrada com sucesso!", "ok");
