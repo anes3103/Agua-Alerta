@@ -8,6 +8,7 @@ const ENDPOINTS = {
   listarDenuncias:   { metodo: "GET",    caminho: "/api/denuncias" },
   buscarDenuncia:    { metodo: "GET",    caminho: "/api/denuncias/{id}" },
   criarDenuncia:     { metodo: "POST",   caminho: "/api/denuncias" },
+  cadastrarLocalizacao: { metodo: "POST", caminho: "/api/localizacoes" },
   atualizarDenuncia: { metodo: "PUT",    caminho: "/api/denuncias/{id}" },
   excluirDenuncia:   { metodo: "DELETE", caminho: "/api/denuncias/{id}" },
   listarTipos:       { metodo: "GET",    caminho: "/api/tipos-ocorrencia" },
@@ -15,7 +16,6 @@ const ENDPOINTS = {
   login:             { metodo: "POST",   caminho: "/api/usuarios/login" },
   buscarUsuario:     { metodo: "GET",    caminho: "/api/usuarios/{id}" },
   atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
-   atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
   analisarDenuncia:  { metodo: "POST",   caminho: "/api/gemini/analisar" }
 };
 
@@ -64,3 +64,5 @@ const login = (corpo) => requisitar("login", { corpo });
 const buscarUsuario = (id) => requisitar("buscarUsuario", { id });
 const atualizarUsuario = (id, corpo) => requisitar("atualizarUsuario", { id, corpo });
 const analisarDenuncia = (descricao) => requisitar("analisarDenuncia", { corpo: { descricao } });
+const cadastrarLocalizacao = (corpo) =>
+    requisitar("cadastrarLocalizacao", { corpo });
