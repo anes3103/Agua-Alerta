@@ -1,3 +1,4 @@
+
 const API_BASE_URL = (
   window.AGUA_ALERTA_API_URL ||
   document.querySelector('meta[name="api-base-url"]')?.content ||
@@ -5,25 +6,30 @@ const API_BASE_URL = (
 ).replace(/\/$/, "");
 
 const ENDPOINTS = {
-  listarDenuncias:   { metodo: "GET",    caminho: "/api/denuncias" },
-  buscarDenuncia:    { metodo: "GET",    caminho: "/api/denuncias/{id}" },
-  criarDenuncia:     { metodo: "POST",   caminho: "/api/denuncias" },
+  listarDenuncias: { metodo: "GET", caminho: "/api/denuncias" },
+  buscarDenuncia: { metodo: "GET", caminho: "/api/denuncias/{id}" },
+  criarDenuncia: { metodo: "POST", caminho: "/api/denuncias" },
   cadastrarLocalizacao: { metodo: "POST", caminho: "/api/localizacoes" },
-  atualizarDenuncia: { metodo: "PUT",    caminho: "/api/denuncias/{id}" },
-  excluirDenuncia:   { metodo: "DELETE", caminho: "/api/denuncias/{id}" },
-  listarTipos:       { metodo: "GET",    caminho: "/api/tipos-ocorrencia" },
-  cadastrarUsuario:  { metodo: "POST",   caminho: "/api/usuarios" },
-  login:             { metodo: "POST",   caminho: "/api/usuarios/login" },
-  buscarUsuario:     { metodo: "GET",    caminho: "/api/usuarios/{id}" },
-  atualizarUsuario:  { metodo: "PUT",    caminho: "/api/usuarios/{id}" },
-  analisarDenuncia:  { metodo: "POST",   caminho: "/api/gemini/analisar" }
+  atualizarDenuncia: { metodo: "PUT", caminho: "/api/denuncias/{id}" },
+  excluirDenuncia: { metodo: "DELETE", caminho: "/api/denuncias/{id}" },
+  listarTipos: { metodo: "GET", caminho: "/api/tipos-ocorrencia" },
+  cadastrarUsuario: { metodo: "POST", caminho: "/api/usuarios" },
+  login: { metodo: "POST", caminho: "/api/usuarios/login" },
+  buscarUsuario: { metodo: "GET", caminho: "/api/usuarios/{id}" },
+  atualizarUsuario: { metodo: "PUT", caminho: "/api/usuarios/{id}" },
+  analisarDenuncia: { metodo: "POST", caminho: "/api/gemini/analisar" }
 };
 
 async function requisitar(nome, { id, corpo } = {}) {
   const ep = ENDPOINTS[nome];
-  if (!ep?.caminho) throw new Error("Rota não configurada.");
+
+  if (!ep?.caminho) {
+    throw new Error("Rota não configurada.");
+  }
+
   const url = API_BASE_URL + ep.caminho.replace("{id}", id ?? "");
   let resposta;
+
   try {
     resposta = await fetch(url, {
       method: ep.metodo,
@@ -33,36 +39,72 @@ async function requisitar(nome, { id, corpo } = {}) {
   } catch {
     const aviso = document.getElementById("aviso-api");
     if (aviso) aviso.hidden = false;
-    throw new Error(`Não foi possível conectar ao back-end em ${API_BASE_URL}.`);
+
+    throw new Error(
+      `Não foi possível conectar ao back-end em ${API_BASE_URL || window.location.origin}.`
+    );
   }
+
   const aviso = document.getElementById("aviso-api");
   if (aviso) aviso.hidden = true;
+
   const texto = await resposta.text();
   let dados = null;
-  if (texto) { try { dados = JSON.parse(texto); } catch { dados = texto; } }
-  if (!resposta.ok) throw new Error(mensagemDeErro(resposta.status, dados));
+
+  if (texto) {
+    try {
+      dados = JSON.parse(texto);
+    } catch {
+      dados = texto;
+    }
+  }
+
+  if (!resposta.ok) {
+    throw new Error(mensagemDeErro(resposta.status, dados));
+  }
+
   return dados;
 }
 
 function mensagemDeErro(status, dados) {
-  if (dados && typeof dados === "object" && dados.message) return dados.message;
-  if (status === 400) return "Os dados enviados são inválidos. Confira o formulário.";
-  if (status === 401 || status === 403) return "E-mail ou senha inválidos.";
-  if (status === 404) return "Item não encontrado.";
-  if (status === 409) return "Já existe um cadastro com esses dados.";
+  if (dados && typeof dados === "object" && dados.message) {
+    return dados.message;
+  }
+
+  if (status === 400) {
+    return "Os dados enviados são inválidos. Confira o formulário.";
+  }
+
+  if (status === 401 || status === 403) {
+    return "E-mail ou senha inválidos.";
+  }
+
+  if (status === 404) {
+    return "Item não encontrado.";
+  }
+
+  if (status === 409) {
+    return "Já existe um cadastro com esses dados.";
+  }
+
   return "O servidor teve um problema. Tente novamente.";
 }
 
 const listarDenuncias = () => requisitar("listarDenuncias");
 const buscarDenuncia = (id) => requisitar("buscarDenuncia", { id });
 const excluirDenuncia = (id) => requisitar("excluirDenuncia", { id });
-const atualizarDenuncia = (id, corpo) => requisitar("atualizarDenuncia", { id, corpo });
-const criarDenuncia = (corpo) => requisitar("criarDenuncia", { corpo });
+const atualizarDenuncia = (id, corpo) =>
+  requisitar("atualizarDenuncia", { id, corpo });
+const criarDenuncia = (corpo) =>
+  requisitar("criarDenuncia", { corpo });
 const listarTipos = () => requisitar("listarTipos");
-const cadastrarUsuario = (corpo) => requisitar("cadastrarUsuario", { corpo });
+const cadastrarUsuario = (corpo) =>
+  requisitar("cadastrarUsuario", { corpo });
 const login = (corpo) => requisitar("login", { corpo });
 const buscarUsuario = (id) => requisitar("buscarUsuario", { id });
-const atualizarUsuario = (id, corpo) => requisitar("atualizarUsuario", { id, corpo });
-const analisarDenuncia = (descricao) => requisitar("analisarDenuncia", { corpo: { descricao } });
+const atualizarUsuario = (id, corpo) =>
+  requisitar("atualizarUsuario", { id, corpo });
+const analisarDenuncia = (descricao) =>
+  requisitar("analisarDenuncia", { corpo: { descricao } });
 const cadastrarLocalizacao = (corpo) =>
-    requisitar("cadastrarLocalizacao", { corpo });
+  requisitar("cadastrarLocalizacao", { corpo });
