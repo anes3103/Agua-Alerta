@@ -1,7 +1,7 @@
 const API_BASE_URL = (
   window.AGUA_ALERTA_API_URL ||
   document.querySelector('meta[name="api-base-url"]')?.content ||
-  "http://localhost:8080"
+  ""
 ).replace(/\/$/, "");
 
 const ENDPOINTS = {
